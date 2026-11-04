@@ -6,4 +6,4 @@ if [[ ! -d "./builddir" ]]; then
 fi
 
 meson compile -C builddir
-.\builddir\app
+./builddir/app
