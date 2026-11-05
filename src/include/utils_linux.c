@@ -12,7 +12,7 @@ int CreateChild(char* path, int waitUntil)
 
     if (pid == 0)
     {
-        execlp(path, NULL)
+        execlp(path, "", NULL);
     }
 
     int status;
