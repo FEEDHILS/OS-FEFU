@@ -10,8 +10,14 @@ dependencies = [
 ]
 
 sources = [
-  'main.c',
+  './src/main.c',
 ]
+
+if host_machine.system() == 'windows'
+    sources += './src/include/utils_win.c'
+elif host_machine.system() == 'linux'
+    sources += './src/include/utils_linux.c'
+endif
 
 executable(
   'app',

@@ -1,12 +1,11 @@
-#include <stdio.h>
 #include <windows.h>
-#include <stdlib.h>
 
-int main(void)
+#include "utils.h"
+
+int CreateChild(char* path, int waitUntil)
 {
     STARTUPINFO si = {0};
     PROCESS_INFORMATION pi = {0};
-    char* path = "C:\\Windows\\System32\\notepad.exe";  
     CreateProcess(
         (LPCSTR)path,
         NULL,
@@ -19,8 +18,7 @@ int main(void)
         &si,
         &pi
     );
-    WaitForSingleObject(pi.hProcess, INFINITE );
-    printf("hello world?");
+    WaitForSingleObject(pi.hProcess, waitUntil == -1 ? INFINITE : (DWORD)waitUntil );
 
     CloseHandle(pi.hThread);
     CloseHandle(pi.hProcess);
