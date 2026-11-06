@@ -30,7 +30,7 @@ int CreateChild(char* path, char* args[], int waitTime)
     pid_t s;
     do
     {
-        s =  waitpid(pid, &status, WNOHANG);
+        s =  waitpid(pid, &status, 0);
     }
     while(s < 0 && errno == EINTR);
 
