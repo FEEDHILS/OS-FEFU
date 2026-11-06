@@ -14,9 +14,9 @@ sources = [
 ]
 
 if host_machine.system() == 'windows'
-    sources += './src/include/utils_win.c'
+    sources += './src/utils_win.c'
 elif host_machine.system() == 'linux'
-    sources += './src/include/utils_linux.c'
+    sources += './src/utils_linux.c'
 endif
 
 executable(
