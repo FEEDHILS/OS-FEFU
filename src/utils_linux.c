@@ -26,6 +26,11 @@ int CreateChild(char* path, char* args[], int waitTime)
         }
     }
 
+    return 0;
+}
+
+int ChildWait(pid_t pid)
+{
     int status;
     pid_t s;
     do
@@ -33,6 +38,11 @@ int CreateChild(char* path, char* args[], int waitTime)
         s =  waitpid(pid, &status, 0);
     }
     while(s < 0 && errno == EINTR);
+
+    if (s < 0)
+    {
+        printf("Ошибка при ожидании. Код ошибки: %d", errno);
+    }
 
     if (WIFEXITED(status))
     {
