@@ -33,11 +33,11 @@ int main(void)
 }
 
 // Потом...
-char** strip(char* str, int amount)
-{
-    char* arr[] = malloc( sizeof(char)*16 * amount );
-    while( strchr(str, (int)' ') != NULL )
-    {
+// char** strip(char* str, int amount)
+// {
+//     char* arr[] = malloc( sizeof(char)*16 * amount );
+//     while( strchr(str, (int)' ') != NULL )
+//     {
 
-    }
-}
+//     }
+// }
