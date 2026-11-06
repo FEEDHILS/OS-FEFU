@@ -1,3 +1,3 @@
 #pragma once
 
-int CreateChild(char * path, int waitUntil);
+int CreateChild(char * path, char* args[], int waitUntil);

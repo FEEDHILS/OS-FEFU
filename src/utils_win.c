@@ -4,7 +4,7 @@
 #include <stdio.h>
 
 
-int CreateChild(char* path, int waitTime)
+int CreateChild(char * path, char* args[], int waitTime)
 {
     STARTUPINFO si = {0};
     PROCESS_INFORMATION pi = {0};

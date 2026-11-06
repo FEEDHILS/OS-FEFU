@@ -8,8 +8,9 @@
 #include <errno.h>
 
 
-int CreateChild(char* path, int waitTime)
+int CreateChild(char* path, char* args[], int waitTime)
 {
+
     pid_t pid = fork();
     if (pid == -1)
     {
@@ -18,22 +19,28 @@ int CreateChild(char* path, int waitTime)
     }
     else if (pid == 0)
     {
-        if (execlp(path, "", NULL) == -1)
+        if (execvp(path, args) == -1)
         {
             printf("Не получилось заменить процесс. Код ошибки %d \n", errno);
-            return errno;
+            _exit(127);
         }
     }
 
-    if (waitTime != 0)
+    int status;
+    pid_t s;
+    do
     {
-        int status;
-        waitpid(pid, &status, 0);
-        if (status != -1)
-            return 0;
-        else
-            return errno;
+        s =  waitpid(pid, &status, WNOHANG);
+    }
+    while(s < 0 && errno == EINTR)
+    if (s < 0)
+        return -1;
+
+    if (WIFEXITED(status))
+    {
+        printf("Код выхода %d", WEXITSTATUS(status));
+        return WEXITSTATUS(status);
     }
     else
-        return 0;
+        return -1;
 }

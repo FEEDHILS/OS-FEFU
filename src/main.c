@@ -9,7 +9,11 @@ int main(void)
 {
     printf("Введите название/путь до приложения: ");
     char* input = malloc(sizeof(char) * 256);
-    scanf("%s", input);
+    char* args_ = malloc(sizeof(char) * 256);
+
+    int args_len = scanf("%s %s", input, args_);
+
+    char* args[] = strip(args, args_len - 1);    
     if (strlen(input) == 1 && *input == '.')
     {
         #if defined(_WIN32)
@@ -19,10 +23,20 @@ int main(void)
         #endif
     }
     
-    printf("Введите время ожидания приложения (в мс, где -1 - бесконечно) ");
+    printf("Введите время ожидания приложения (в мс, где -1 - бесконечно)");
     int waitTime;
     scanf("%d", &waitTime);
 
     CreateChild(input, waitTime);
     return 0;
+}
+
+// Потом...
+char** strip(char* str, int amount)
+{
+    char* arr[] = malloc( sizeof(char)*16 * amount );
+    while( strchr(str, (int)' ') != NULL )
+    {
+
+    }
 }
