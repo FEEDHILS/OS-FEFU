@@ -16,7 +16,7 @@ int CreateChild(char* path, int waitTime)
         printf("Не получилось дублировать процесс. Код ошибки %d \n", errno);
         return errno;
     }
-    elif (pid == 0)
+    else if (pid == 0)
     {
         if (execlp(path, "", NULL) == -1)
         {
