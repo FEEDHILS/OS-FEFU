@@ -26,6 +26,7 @@ int CreateChild(char* path, char* args[], int waitTime)
         }
     }
 
+    ChildWait(pid);
     return 0;
 }
 
