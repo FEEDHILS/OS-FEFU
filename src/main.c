@@ -13,7 +13,8 @@ int main(void)
 
     int args_len = scanf("%s %s", input, args_);
 
-    char* args[] = strip(args, args_len - 1);    
+    // char* args[] = strip(args, args_len - 1);   
+    char* args[] = {NULL}; 
     if (strlen(input) == 1 && *input == '.')
     {
         #if defined(_WIN32)

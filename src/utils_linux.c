@@ -32,9 +32,7 @@ int CreateChild(char* path, char* args[], int waitTime)
     {
         s =  waitpid(pid, &status, WNOHANG);
     }
-    while(s < 0 && errno == EINTR)
-    if (s < 0)
-        return -1;
+    while(s < 0 && errno == EINTR);
 
     if (WIFEXITED(status))
     {
