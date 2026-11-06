@@ -28,7 +28,7 @@ int main(void)
     int waitTime;
     scanf("%d", &waitTime);
 
-    CreateChild(input, waitTime);
+    CreateChild(input, args, waitTime);
     return 0;
 }
 
