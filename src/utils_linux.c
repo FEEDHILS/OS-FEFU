@@ -7,6 +7,7 @@
 #include <sys/wait.h>
 #include <errno.h>
 #include <sys/mman.h>
+#include <fcntl.h>
 #include <pthread.h>
 
 typedef struct{
@@ -14,8 +15,8 @@ typedef struct{
     int counter;
 } SharedData;
 
-SharedData* pointer
-void Execute()
+SharedData* pointer;
+void Execute(char* arg)
 {
     int shmem = shm_open("/MyMemCounter", O_CREAT | O_EXCL | O_RDWR, 0666);
     if (errno != EEXIST)
