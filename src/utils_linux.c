@@ -37,7 +37,8 @@ void Execute(char* arg)
     }
     
     pointer->counter += 1;
-    nanosleep((timespec){0, 300000000L}, NULL);
+    // struct timespec = {time_t tv_sec = 0}
+    nanosleep((const struct timespec[]){{0, 300000L}}, NULL);
 
     
 }
