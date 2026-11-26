@@ -11,7 +11,7 @@
 
 typedef struct{
     pthread_mutex_t mutex;
-    int counter = 0;
+    int counter;
 } SharedData;
 
 SharedData* pointer
@@ -22,7 +22,8 @@ void Execute()
     {
         ftruncate(shmem, sizeof(SharedData));
         pointer = (SharedData *)mmap(NULL, sizeof(SharedData), PROT_READ | PROT_WRITE, MAP_SHARED, shmem, 0);
-        
+        pointer->counter = 0;
+
         pthread_mutexattr_t attr;
         pthread_mutexattr_init(&attr);
         pthread_mutexattr_setpshared(&attr, PTHREAD_PROCESS_SHARED);
