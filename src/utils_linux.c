@@ -3,53 +3,39 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-#include <sys/types.h>
+#include <time.h>
 #include <sys/wait.h>
 #include <errno.h>
+#include <sys/mman.h>
+#include <pthread.h>
 
+typedef struct{
+    pthread_mutex_t mutex;
+    int counter = 0;
+} SharedData;
 
-int CreateChild(char* path, char* args[], int waitTime)
+SharedData* pointer
+void Execute()
 {
-
-    pid_t pid = fork();
-    if (pid == -1)
+    int shmem = shm_open("/MyMemCounter", O_CREAT | O_EXCL | O_RDWR, 0666);
+    if (errno != EEXIST)
     {
-        printf("Не получилось дублировать процесс. Код ошибки %d \n", errno);
-        return errno;
-    }
-    else if (pid == 0)
-    {
-        if (execvp(path, args) == -1)
-        {
-            printf("Не получилось заменить процесс. Код ошибки %d \n", errno);
-            _exit(127);
-        }
-    }
-
-    ChildWait(pid);
-    return 0;
-}
-
-int ChildWait(pid_t pid)
-{
-    int status;
-    pid_t s;
-    do
-    {
-        s =  waitpid(pid, &status, 0);
-    }
-    while(s < 0 && errno == EINTR);
-
-    if (s < 0)
-    {
-        printf("Ошибка при ожидании. Код ошибки: %d", errno);
-    }
-
-    if (WIFEXITED(status))
-    {
-        printf("Код выхода %d", WEXITSTATUS(status));
-        return WEXITSTATUS(status);
+        ftruncate(shmem, sizeof(SharedData));
+        pointer = (SharedData *)mmap(NULL, sizeof(SharedData), PROT_READ | PROT_WRITE, MAP_SHARED, shmem, 0);
+        
+        pthread_mutexattr_t attr;
+        pthread_mutexattr_init(&attr);
+        pthread_mutexattr_setpshared(&attr, PTHREAD_PROCESS_SHARED);
+        int error = pthread_mutex_init(&pointer->mutex, &attr);
     }
     else
-        return -1;
+    {
+        int shmem = shm_open("/MyMemCounter", O_RDWR, 0);
+        pointer = (SharedData *)mmap(NULL, sizeof(SharedData), PROT_READ | PROT_WRITE, MAP_SHARED, shmem, 0);
+    }
+    
+    pointer->counter += 1
+    nanosleep({0, 300000000L}, NULL);
+
+    
 }
