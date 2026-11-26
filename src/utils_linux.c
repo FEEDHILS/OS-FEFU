@@ -37,7 +37,7 @@ void Execute(char* arg)
     }
     
     pointer->counter += 1;
-    nanosleep({0, 300000000L}, NULL);
+    nanosleep((timespec){0, 300000000L}, NULL);
 
     
 }
