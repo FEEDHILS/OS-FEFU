@@ -36,9 +36,12 @@ void Execute(char* arg)
         pointer = (SharedData *)mmap(NULL, sizeof(SharedData), PROT_READ | PROT_WRITE, MAP_SHARED, shmem, 0);
     }
     
-    pointer->counter += 1;
-    // struct timespec = {time_t tv_sec = 0}
-    nanosleep((const struct timespec[]){{0, 300000L}}, NULL);
-
+    while(1)
+    {
+        pointer->counter += 1;
+        // struct timespec = {time_t tv_sec = 0}
+        nanosleep((const struct timespec[]){{0, 300000L}}, NULL);
+        printf("%d", pointer->counter);
+    }
     
 }
