@@ -40,8 +40,8 @@ void Execute(char* arg)
     {
         pointer->counter += 1;
         // struct timespec = {time_t tv_sec = 0}
-        nanosleep((const struct timespec[]){{0, 300000L}}, NULL);
-        printf("%d", pointer->counter);
+        nanosleep((const struct timespec[]){{0, 300000000L}}, NULL);
+        printf("%d \n", pointer->counter);
     }
     
 }
