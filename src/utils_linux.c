@@ -36,7 +36,7 @@ void Execute(char* arg)
         pointer = (SharedData *)mmap(NULL, sizeof(SharedData), PROT_READ | PROT_WRITE, MAP_SHARED, shmem, 0);
     }
     
-    pointer->counter += 1
+    pointer->counter += 1;
     nanosleep({0, 300000000L}, NULL);
 
     
