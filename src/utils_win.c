@@ -156,7 +156,7 @@ void Copy2()
 }
 
 
-void Execute(char* arg)
+void Execute(char* arg[])
 {
     HANDLE shmem;
     if (CreateSharedMem("Local\\MyCounter", &shmem) != 0)
@@ -182,12 +182,12 @@ void Execute(char* arg)
         printf("Инициализирую общую память\n");
     }
 
-    if (strcmp(arg, "1") == 0)
+    if (strcmp(arg[0], "1") == 0)
     {
         Copy1();
         return;
     }
-    else if (strcmp(arg, "2") == 0)
+    else if (strcmp(arg[0], "2") == 0)
     {
         Copy2();
         return;

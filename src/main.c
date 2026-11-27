@@ -7,10 +7,6 @@
 
 int main(int argc, char* argv[])
 {
-    char* arg = NULL;
-    if (argc > 0)
-        arg = argv[0];
-
-    Execute(arg);
+    Execute(argc, argv);
     return 0;
 }
